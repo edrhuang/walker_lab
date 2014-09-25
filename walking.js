@@ -1,9 +1,51 @@
-var leftBorder = 400;
-var rightBorder = 700;
+window.onload = function(){
+	var leftBorder = 10;
+	var rightBorder = 900;
+	var theWalker = document.getElementById("img");
+	var direction = "left"
 
-var theWalker = document.getElementById("img");
+	
 
+	theWalker.style.left = rightBorder + 'px';
+	
+	function moveLeft() {
+		var pVal = parseInt(theWalker.style.left);
+		theWalker.style.left = pVal - 100 +'px';
+	}
 
-// Have the stick figure start at the right border and start walking left
-// When he crosses the left border, have him turn around and start walking right (and vice versa)
-// Bonus: Make him turn around when you click on him
+	function moveRight() {
+		var pVal = parseInt(theWalker.style.left);
+		theWalker.style.left = pVal + 100 +'px';
+	}
+
+	function turn(){
+		if (direction === "left") {
+			theWalker.setAttribute('class', 'flip-img');
+			direction = "right";
+		}
+		else{
+			theWalker.setAttribute('class', '');
+			direction = "left";
+		}
+
+	}
+
+	function moveIt(){
+			var xVal = parseInt(theWalker.style.left);
+
+			if (direction === 'left' && xVal > leftBorder){
+				moveLeft();
+			}
+			else if (direction === 'right' && xVal < rightBorder){
+				moveRight();
+			}
+			else{
+				turn();
+			}
+	}
+
+	setInterval(moveIt, 500);
+
+	theWalker.onclick = turn();
+}
+
